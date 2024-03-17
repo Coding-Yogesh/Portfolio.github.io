@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Sample Responsive Mail Form</title>
+<meta name="robots" content="noindex,nofollow" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+<!-- Unnecessary CSS for integration into existing sites starts here -->
+<link rel="stylesheet" href="css/reset.css" />
+<style>
+body {
+	color: #454545;
+	font-family: sans-serif;
+	background: #f0f0f0;
+}
+</style>
+<!-- Unnecessary CSS for integration into existing sites ends here -->
+
+<link rel="stylesheet" href="css/mailform.css" />
+
+<!-- Date and time selection library starts here -->
+<link rel="stylesheet" href="css/jquery.datetimepicker.css" />
+<!-- Date and time selection library ends here -->
+</head>
+<body>
+
+<form action="php/mailform.php" method="post" id="mail_form">
+	
+	<dl>
+		<dt><i></i>Company Name</dt>
+		<dd><input type="text" name="company" value="" /></dd>
+	</dl>
+	
+	<dl>
+		<dt><i></i>Name</dt>
+		<dd class="required"><input type="text" name="name_1" value="" /> <input type="text" name="name_2" value="" /></dd>
+	</dl>
+	
+	<dl>
+		<dt><i></i>Email Address</dt>
+		<dd class="required"><input type="email" name="mail_address" value="" /></dd>
+	</dl>
+	
+	<dl>
+		<dt><i></i>Email Address (Confirmation)</dt>
+		<dd><input type="email" name="mail_address_confirm" value="" /></dd>
+	</dl>
+	
+	<dl>
+		<dt><i></i>Gender</dt>
+		<dd>
+			<ul>
+				<li><label><input type="radio" name="gender" value="Male" />Male</label></li>
+				<li><label><input type="radio" name="gender" value="Female" />Female</label></li>
+			</ul>
+		</dd>
+	</dl>
+		
+	<dl>
+		<dt><i></i>Postal Code</dt>
+		<dd class="required"><input type="text" name="postal" value="" onkeyup="AjaxZip3.zip2addr( this,'','address','address' );" /> <a href="https://worldpostalcode.com/" target="_blank">Postal Code Search</a></dd>
+	</dl>
+	
+	<dl>
+		<dt><i></i>Address</dt>
+		<dd><input type="text" name="address" value="" /></dd>
+	</dl>
+	
+	<dl>
+		<dt><i></i>Phone Number</dt>
+		<dd><input type="tel" name="phone" value="" /></dd>
+	</dl>
+	
+	<dl>
+		<dt><i></i>Preferred Date and Time</dt>
+		<dd class="required"><input type="text" name="schedule" value="" readonly="readonly" /></dd>
+	</dl>
+	
+	<dl>
+		<dt><i></i>Preferred Product</dt>
+		<dd>
+			<select name="product">
+				<option value="">Please select</option>
+				<option value="iPhone4">iPhone4</option>
+				<option value="iPhone4s">iPhone4s</option>
+				<option value="iPhone5">iPhone5</option>
+				<option value="iPhone5s">iPhone5s</option>
+				<option value="iPhone6">iPhone6</option>
+				<option value="iPhone6 Plus">iPhone6 Plus</option>
+				<option value="iPhone6s">iPhone6s</option>
+				<option value="iPhone6s Plus">iPhone6s Plus</option>
+				<option value="iPhone7">iPhone7</option>
+				<option value="iPhone7 Plus">iPhone7 Plus</option>
+			</select>
+		</dd>
+	</dl>
+	
+	<dl>
+		<dt><i></i>Currently Used Product</dt>
+		<dd>
+			<select name="use">
+				<option value="">Please select</option>
+				<option value="iPhone4">iPhone4</option>
+				<option value="iPhone4s">iPhone4s</option>
+				<option value="iPhone5">iPhone5</option>
+				<option value="iPhone5s">iPhone5s</option>
+				<option value="iPhone6">iPhone6</option>
+				<option value="iPhone6 Plus">iPhone6 Plus</option>
+				<option value="iPhone6s">iPhone6s</option>
+				<option value="iPhone6s Plus">iPhone6s Plus</option>
+				<option value="iPhone7">iPhone7</option>
+				<option value="iPhone7 Plus">iPhone7 Plus</option>
+				<option value="Other">Other</option>
+			</select>
+		</dd>
+	</dl>
+	
+	<dl>
+		<dt><i></i>Inquiry Type</dt>
+		<dd>
+			<ul>
+				<li><label><input type="checkbox" name="kind[]" value="Regarding Website" />Regarding Website</label></li>
+				<li><label><input type="checkbox" name="kind[]" value="Regarding Product" />Regarding Product</label></li>
+				<li><label><input type="checkbox" name="kind[]" value="Regarding Recruitment" />Regarding Recruitment</label></li>
+				<li><label><input type="checkbox" name="kind[]" value="Comments or Suggestions" />Comments or Suggestions</label></li>
+			</ul>
+		</dd>
+	</dl>
+	
+	<dl>
+		<dt><i></i>Preferred Method of Reply</dt>
+		<dd>
+			<ul>
+				<li><label><input type="checkbox" name="response[]" value="Prefer Reply by Phone" />Prefer Reply by Phone</label></li>
+				<li><label><input type="checkbox" name="response[]" value="Prefer Reply by Email" />Prefer Reply by Email</label></li>
+				<li><label><input type="checkbox" name="response[]" value="No Reply Needed" />No Reply Needed</label></li>
+			</ul>
+		</dd>
+	</dl>
+	
+	<dl>
+		<dt><i></i>Inquiry Details</dt>
+		<dd class="required"><textarea name="contents" cols="40" rows="5"></textarea></dd>
+	</dl>
+	
+	<dl>
+	</dl>
+	
+	<p id="form_submit"><input type="button" id="form_submit_button" value="Submit" /></p>
+	
+</form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="js/mailform-js.php"></script>
+
+<!-- Automatic furigana input library starts here -->
+<script src="js/jquery.autoKana.js"></script>
+<script>
+	(function( $ ) {
+		$.fn.autoKana( 'input[name="name_1"]', 'input[name="read_1"]', {
+			katakana: false
+		});
+		$.fn.autoKana( 'input[name="name_2"]', 'input[name="read_2"]', {
+			katakana: false
+		});
+	})( jQuery );
+</script>
+<!-- Automatic furigana input library ends here -->
+
+<!-- Automatic address input library starts here -->
+<script src="js/ajaxzip3.js"></script>
+<!-- Automatic address input library ends here -->
+
+<!-- Date and time selection library starts here -->
+<script src="js/jquery.datetimepicker.js"></script>
+<script>
+	(function( $ ) {
+		$( 'input[name="schedule"]' ).datetimepicker({
+			lang: 'en'
+		});
+	})( jQuery );
+</script>
+<!-- Date and time selection library ends here -->
+
+</body>
+</html>
